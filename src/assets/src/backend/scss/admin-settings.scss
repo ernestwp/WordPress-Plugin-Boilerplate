@@ -1,0 +1,48 @@
+.single-module {
+  border:1px solid grey;
+  background: white;padding:15px;
+  margin: 0 15px 15px 0;
+  background: $white;
+
+  .module-title--heading{
+    display: inline-block;
+  }
+
+  .module-title--switch{
+    float: right;
+    margin: 1.33em 0;
+  }
+
+  .module-settings{
+    fieldset{
+      legend{
+        text-decoration: underline;
+        margin-bottom: 15px;
+      }
+      label {
+        display: block;
+        margin-bottom: 25px;
+      }
+      p {
+        display: block;
+        margin-bottom: 25px;
+      }
+      button{
+        background: $wordpress-blue;
+        color: $white;
+        border: none;
+        padding: 5px 15px;
+        &:hover {
+          background:#0085c4;
+        }
+        &:focus {
+          outline: none;
+        }
+        &:disabled {
+          background:#f1f1f1;
+          color:#a4a4a4;
+        }
+      }
+    }
+  }
+}
