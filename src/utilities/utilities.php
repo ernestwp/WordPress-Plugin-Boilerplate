@@ -45,6 +45,17 @@ class Utilities {
 	private static $prefix;
 
 	/**
+	 * The slug of this plugin that is set in the config class
+	 *
+	 * @use      get_version()
+	 *
+	 * @since    {plugin_version}
+	 * @access   private
+	 * @var      string
+	 */
+	private static $slug;
+
+	/**
 	 * The plugins version number
 	 *
 	 * @use      get_version()
@@ -178,6 +189,34 @@ class Utilities {
 	}
 
 	/**
+	 * Set the slug for the plugin
+	 *
+	 * @param string $slug Variable used to create custom menus and post/taxonomies/...
+	 *
+	 * @return string
+	 * @since    {plugin_version}
+	 *
+	 */
+	public static function set_slug( $slug ) {
+		if ( null === self::$slug ) {
+			self::$slug = $slug;
+		}
+
+		return self::$slug;
+	}
+
+	/**
+	 * Get the slug for the plugin
+	 *
+	 * @return string
+	 * @since    {plugin_version}
+	 *
+	 */
+	public static function get_slug() {
+		return self::$slug;
+	}
+
+	/**
 	 * Set the version for the plugin
 	 *
 	 * @param string $version Variable used to prefix filters and actions
@@ -188,7 +227,11 @@ class Utilities {
 	 */
 	public static function set_version( $version ) {
 		if ( null === self::$version ) {
-			self::$version = $version;
+			if( false !== strpos($version,'plugin_version')){
+				self::$version = '1.0';
+			}else{
+				self::$version = $version;
+			}
 		}
 
 		return self::$version;

@@ -100,6 +100,37 @@ abstract class Module implements Module_i {
 		return $this->settings;
 	}
 
+	public function get_setting( $name ) {
+
+		if ( empty( $name ) ) {
+			return null;
+		}
+
+		// The default setting value
+		$setting_value = '';
+
+		// add stored values of all the settings
+		foreach ( $this->settings as &$setting ) {
+
+			// Only add settings values to settings that do no have a value yet
+			if ( isset( $setting['type'] ) && ! isset( $setting['value'] ) ) {
+
+				// Get the than name of the child class that extends this abstract class
+				$__CHILD_CLASS__ = get_class( $this );
+
+				// Store the settings value in the settings object
+				$setting['value'] = get_option( $__CHILD_CLASS__ . '>' . $setting['name'], '' );
+			}
+
+			// If the settings name matches the name the name is the settings object the set it for return
+			if ( $name === $setting['name'] ) {
+				$setting_value = $setting['value'];
+			}
+		}
+
+		return $setting_value;
+	}
+
 	abstract function set_module_details();
 
 	abstract function dependants_exist();

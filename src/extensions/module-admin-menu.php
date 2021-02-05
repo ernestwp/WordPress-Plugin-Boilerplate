@@ -31,7 +31,7 @@ class Module_Admin_Menu {
 	 * @access   private
 	 * @var      string
 	 */
-	private $root_path = 'ppb/v2/';
+	private $root_path = null;
 
 	/**
 	 * class constructor
@@ -49,6 +49,9 @@ class Module_Admin_Menu {
 			}
 		}
 
+		// Define the root path for the rest api
+		$this->root_path = str_replace( [ '{', '}' ], '', Utilities::get_prefix() . '/v2/' );
+
 		// Setup Theme Options Page Menu in Admin
 		if ( is_admin() ) {
 			add_action( 'admin_menu', array( $this, 'register_options_menu_page' ) );
@@ -65,28 +68,21 @@ class Module_Admin_Menu {
 	 */
 	function register_options_menu_page() {
 
-		// TODO - SET $page_title AND REMOVE THIS COMMENT
-		$page_title = __( 'Private Plugin', 'private-plugin-boilerplate' );
+		$page_title = __( '{plugin_name}', '{plugin_text_domain}' );
 
 		$capability = 'manage_options';
 
-		$menu_title               = $page_title;
-		$menu_slug                = sanitize_title( $page_title );
-		$this->settings_page_slug = $menu_slug;
-		$function                 = array( $this, 'options_menu_page_output' );
+		$menu_title = $page_title;
 
-		// Menu Icon blends into sidebar when the default admin color scheme is used
-		$admin_color_scheme = get_user_meta( get_current_user_id(), 'admin_color', true );
+		$this->settings_page_slug = Utilities::get_prefix() . Utilities::get_slug();
 
-		if ( 'fresh' === $admin_color_scheme ) {
-			$icon_url = Utilities::get_media( 'wordpress-boilerplates-icon-20.png' );
-		} else {
-			$icon_url = Utilities::get_media( 'wordpress-boilerplates-icon-20.png' );
-		}
+		$function = array( $this, 'options_menu_page_output' );
+
+		$icon_url = 'dashicons-editor-justify';
 
 		$position = 11; // 11 - Above Comments Menu Item
 
-		add_menu_page( $page_title, $menu_title, $capability, $menu_slug, $function, $icon_url, $position );
+		add_menu_page( $page_title, $menu_title, $capability, $this->settings_page_slug, $function, $icon_url, $position );
 
 	}
 
@@ -115,7 +111,7 @@ class Module_Admin_Menu {
 				'plugin_prefix' => Utilities::get_prefix()
 			);
 
-			wp_localize_script( Utilities::get_prefix() . '-admin-settings', 'plugin_prefixApiSetup', $api_setup );
+			wp_localize_script( Utilities::get_prefix() . '-admin-settings', 'SettingsApiSetup', $api_setup );
 
 			wp_enqueue_script( Utilities::get_prefix() . '-admin-settings' );
 
@@ -164,7 +160,7 @@ class Module_Admin_Menu {
 		$response = (object) [];
 
 		// Default return message
-		$response->message = __( 'There was a WordPress error. Please reload the page and trying again.', 'private-plugin-boilerplate' );
+		$response->message = __( 'There was a WordPress error. Please reload the page and trying again.', '{plugin_text_domain}' );
 		$response->success = false;
 
 		if ( is_array( $_POST ) ) {
@@ -184,10 +180,10 @@ class Module_Admin_Menu {
 
 			if ( 'true' === $checked ) {
 				update_option( 'switch-' . $class, 'on' );
-				$response->message = __( 'Module is active.', 'private-plugin-boilerplate' );
+				$response->message = __( 'Module is active.', '{plugin_text_domain}' );
 				$response->success = true;
 			} elseif ( 'false' === $checked ) {
-				$response->message = __( 'Module is inactive.', 'private-plugin-boilerplate' );
+				$response->message = __( 'Module is inactive.', '{plugin_text_domain}' );
 				$response->success = true;
 				update_option( 'switch-' . $class, 'off' );
 			}
@@ -210,7 +206,7 @@ class Module_Admin_Menu {
 		$response = (object) [];
 
 		// Default return message
-		$response->message = __( 'There was a WordPress error. Please reload the page and trying again.', 'private-plugin-boilerplate' );
+		$response->message = __( 'There was a WordPress error. Please reload the page and trying again.', '{plugin_text_domain}' );
 		$response->success = false;
 
 		if ( is_array( $_POST ) ) {
@@ -239,7 +235,7 @@ class Module_Admin_Menu {
 				}
 			}
 
-			$response->message = __( 'Module settings are saved.', 'private-plugin-boilerplate' );
+			$response->message = __( 'Module settings are saved.', '{plugin_text_domain}' );
 			$response->success = true;
 
 			$response = new \WP_REST_Response( $response, 200 );
@@ -263,7 +259,7 @@ class Module_Admin_Menu {
 
 		// Restrict endpoint to only users who have the edit_posts capability.
 		if ( ! current_user_can( $capability ) ) {
-			return new \WP_Error( 'rest_forbidden', esc_html__( 'You do not have the capability to switch modules on or off.', 'private-plugin-boilerplate' ), array( 'status' => 401 ) );
+			return new \WP_Error( 'rest_forbidden', esc_html__( 'You do not have the capability to switch modules on or off.', '{plugin_text_domain}' ), array( 'status' => 401 ) );
 		}
 
 		// This is a black-listing approach. You could alternatively do this via white-listing, by returning false here and changing the permissions check.
@@ -279,7 +275,7 @@ class Module_Admin_Menu {
 
 		// Restrict endpoint to only users who have the edit_posts capability.
 		if ( ! current_user_can( $capability ) ) {
-			return new \WP_Error( 'rest_forbidden', esc_html__( 'You do not have the capability to save module settings.', 'private-plugin-boilerplate' ), array( 'status' => 401 ) );
+			return new \WP_Error( 'rest_forbidden', esc_html__( 'You do not have the capability to save module settings.', '{plugin_text_domain}' ), array( 'status' => 401 ) );
 		}
 
 		// This is a black-listing approach. You could alternatively do this via white-listing, by returning false here and changing the permissions check.

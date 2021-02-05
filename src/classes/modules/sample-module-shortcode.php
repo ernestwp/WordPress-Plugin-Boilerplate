@@ -84,10 +84,6 @@ class Sample_Module_Shortcode extends Module {
 
 		ob_start();
 
-		echo '<pre>';
-		var_dump( $settings );
-		echo '</pre>';
-
 		return ob_get_clean();
 	}
 
@@ -138,7 +134,7 @@ class Sample_Module_Shortcode extends Module {
 		 *
 		 * @type string
 		 */
-		$this->title = esc_html__( 'Dump module settings', '{text-domain}' );
+		$this->title = esc_html__( 'Dump module settings', '{plugin_text_domain}' );
 
 		/*
 		 * Link to class's associated knowledge base article
@@ -152,7 +148,7 @@ class Sample_Module_Shortcode extends Module {
 		 * Description should be adapted from the post_content in the knowledge base article. Exclude any technical
 		 * documentation including: shortcodes, attributes, use cases, images, and/or steps. (approx. 25-200 characters)
 		 */
-		$this->description = esc_html__( 'Creates a [dump_settings] shortcode that dumps all the settings with saved values.', '{text-domain}' );
+		$this->description = esc_html__( 'Creates a [dump_settings] shortcode that dumps all the settings with saved values.', '{plugin_text_domain}' );
 
 		/*
 		 * Settings define the inputs that are added to the settings modal pop.
@@ -162,24 +158,24 @@ class Sample_Module_Shortcode extends Module {
 		$this->settings = (object) [
 			[
 				'type'  => 'text',
-				'label' => esc_html__( 'The most healthy food.', '{text-domain}' ),
+				'label' => esc_html__( 'The most healthy food.', '{plugin_text_domain}' ),
 				'name'  => 'most-healthy-food-text'
 			],
 
 			[
 				'type'  => 'helper',
-				'label' => esc_html__( 'This food is what 92% of someone\'s diet should consist of.', '{text-domain}' ),
+				'label' => esc_html__( 'This food is what 92% of someone\'s diet should consist of.', '{plugin_text_domain}' ),
 				'name'  => 'healthy-food-label-helper'
 			],
 
 			[
 				'type'  => 'checkbox',
-				'label' => esc_html__( 'AutoStart', '{text-domain}' ),
+				'label' => esc_html__( 'AutoStart', '{plugin_text_domain}' ),
 				'name'  => 'auto-start-diet'
 			],
 			[
 				'type'    => 'select',
-				'label'   => esc_html__( 'Default Diet', '{text-domain}' ),
+				'label'   => esc_html__( 'Default Diet', '{plugin_text_domain}' ),
 				'name'    => 'default-diet',
 				'options' => [
 					'carnist'       => 'Carnist',

@@ -94,6 +94,14 @@ class Config {
 			Utilities::set_version( $version );
 		}
 
+		// Set and define slug
+		if ( ! defined( strtoupper( $prefix ) . '_PREFIX' ) ) {
+
+			$slug = sanitize_title( $plugin_name );
+			define( strtoupper( $prefix ) . '_SLUG', $slug );
+			Utilities::set_slug( $slug );
+		}
+
 		// Set and define prefix
 		if ( ! defined( strtoupper( $prefix ) . '_PREFIX' ) ) {
 			define( strtoupper( $prefix ) . '_PREFIX', $prefix );

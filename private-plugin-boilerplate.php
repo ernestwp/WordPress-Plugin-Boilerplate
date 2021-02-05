@@ -53,7 +53,7 @@ class Initialize_Plugin {
 	 * @access   public
 	 * @var      string
 	 */
-	const PLUGIN_PREFIX = 'plugin_prefix';
+	const PLUGIN_PREFIX = '{plugin_prefix}';
 
 	/**
 	 * Min PHP Version
@@ -71,7 +71,7 @@ class Initialize_Plugin {
 	 * @access   public
 	 * @var      string
 	 */
-	const PLUGIN_VERSION = '1.1';
+	const PLUGIN_VERSION = '{plugin_version}';
 
 	/**
 	 * The full path and filename

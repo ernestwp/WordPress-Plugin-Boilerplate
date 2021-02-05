@@ -1,6 +1,6 @@
 <?php
 
-namespace My_Testing;
+namespace __plugin_namespace__;
 
 if ( ! defined( 'WPINC' ) ) {
 	die;

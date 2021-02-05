@@ -28,11 +28,11 @@ class SaveAdminPageSettings {
 
 			$.ajax( {
 					method: "POST",
-					url: plugin_prefixApiSetup.root + checkbox.dataset.endpoint + '/',
+					url: SettingsApiSetup.root + checkbox.dataset.endpoint + '/',
 					data: restData,
 					// Attach Nonce the the header of the request
 					beforeSend: function ( xhr ){
-						xhr.setRequestHeader( 'X-WP-Nonce', plugin_prefixApiSetup.nonce );
+						xhr.setRequestHeader( 'X-WP-Nonce', SettingsApiSetup.nonce );
 					}
 				} )
 				.done( function ( response ){
@@ -88,11 +88,11 @@ class SaveAdminPageSettings {
 
 			$.ajax( {
 					method: "POST",
-					url: plugin_prefixApiSetup.root + button.dataset.endpoint + '/',
+					url: SettingsApiSetup.root + button.dataset.endpoint + '/',
 					data: restData,
 					// Attach Nonce the the header of the request
 					beforeSend: function ( xhr ){
-						xhr.setRequestHeader( 'X-WP-Nonce', plugin_prefixApiSetup.nonce );
+						xhr.setRequestHeader( 'X-WP-Nonce', SettingsApiSetup.nonce );
 					}
 				} )
 				.done( function ( response ){

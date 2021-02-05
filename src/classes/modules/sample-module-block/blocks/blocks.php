@@ -30,7 +30,7 @@ class Blocks {
 			// Enqueue Gutenberg block assets for both frontend + backend
 			add_action( 'enqueue_block_assets', function () {
 				wp_enqueue_style(
-					'plugin-prefix-gutenberg-blocks',
+					Utilities::get_prefix() . '-gutenberg-blocks',
 					plugins_url( 'blocks/dist/blocks.style.build.css', dirname( __FILE__ ) ),
 					[],
 					Utilities::get_version()
@@ -40,7 +40,7 @@ class Blocks {
 			// Enqueue Gutenberg block assets for backend editor
 			add_action( 'enqueue_block_editor_assets', function () {
 				wp_enqueue_script(
-					'plugin-prefix-gutenberg-editor',
+					Utilities::get_prefix() . '-gutenberg-editor',
 					plugins_url( 'blocks/dist/blocks.build.js', dirname( __FILE__ ) ),
 					[ 'wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor' ],
 					Utilities::get_version(),
@@ -48,7 +48,7 @@ class Blocks {
 				);
 
 				wp_enqueue_style(
-					'plugin-prefix-gutenberg-editor',
+					Utilities::get_prefix() . '-gutenberg-editor',
 					plugins_url( 'blocks/dist/blocks.editor.build.css', dirname( __FILE__ ) ),
 					[ 'wp-edit-blocks' ],
 					Utilities::get_version()
